@@ -1,0 +1,225 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-50: #f0fdf4;
+  --color-brand-100: #dcfce7;
+  --color-brand-500: #22c55e;
+  --color-brand-600: #16a34a;
+  --color-dark-bg: #0f172a;
+  --color-dark-surface: #1e293b;
+  --font-sans: 'Inter', sans-serif;
+  --font-display: 'Outfit', sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  /* Force hardware acceleration and pristine text rendering */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  
+  /* Premium crisp white background */
+  background-color: #ffffff; 
+  /* High contrast, sharp text */
+  color: #0f172a; 
+}
+
+/* Premium Brand Selection Color */
+::selection {
+  background-color: var(--color-brand-100);
+  color: var(--color-brand-600);
+}
+
+/* Sleek Mac-style Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 14px;
+  height: 14px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #cbd5e1;
+  border-radius: 10px;
+  border: 4px solid #ffffff;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: #94a3b8;
+}
+
+/* Reset Focus Outlines - Prevent Double Green Lines */
+input, textarea, select, button {
+  outline: none;
+}
+
+input:focus,
+input:focus-visible,
+textarea:focus,
+textarea:focus-visible,
+select:focus,
+select:focus-visible,
+button:focus-visible {
+  outline: none !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+}
+
+.glass-panel {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+}
+
+.glass-panel-dark {
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+}
+
+.premium-shadow {
+  box-shadow: 0 10px 40px -10px rgba(0,0,0,0.08);
+}
+
+.premium-card-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.premium-card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px -10px rgba(0,0,0,0.12);
+}
+
+.map-blur-overlay {
+  filter: blur(8px);
+  transition: filter 0.3s ease;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* ─── Smooth Flow-Down Accordion Animations ─── */
+.flow-down-grid {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition: grid-template-rows 480ms cubic-bezier(0.16, 1, 0.3, 1), opacity 360ms cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: grid-template-rows, opacity;
+}
+
+.flow-down-grid.is-open {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+
+.flow-down-inner {
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* Staggered cascading waterfall flow when expanding */
+@keyframes flowDownWaterfall {
+  0% {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.flow-down-grid.is-open .cascade-item-1 {
+  animation: flowDownWaterfall 440ms cubic-bezier(0.16, 1, 0.3, 1) 0.05s both;
+}
+
+.flow-down-grid.is-open .cascade-item-2 {
+  animation: flowDownWaterfall 440ms cubic-bezier(0.16, 1, 0.3, 1) 0.13s both;
+}
+
+.flow-down-grid.is-open .cascade-item-3 {
+  animation: flowDownWaterfall 440ms cubic-bezier(0.16, 1, 0.3, 1) 0.21s both;
+}
+
+.flow-down-grid.is-open .cascade-item-4 {
+  animation: flowDownWaterfall 440ms cubic-bezier(0.16, 1, 0.3, 1) 0.29s both;
+}
+
+/* ─── Rich CSS Shimmer & Hover Micro-Interactions ─── */
+@keyframes rowLightSweep {
+  0% {
+    transform: translateX(-120%) skewX(-20deg);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateX(250%) skewX(-20deg);
+    opacity: 0;
+  }
+}
+
+.shimmer-sweep-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 45%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(16, 185, 129, 0.08) 25%,
+    rgba(255, 255, 255, 0.7) 50%,
+    rgba(16, 185, 129, 0.08) 75%,
+    transparent 100%
+  );
+  pointer-events: none;
+  opacity: 0;
+}
+
+.group:hover .shimmer-sweep-layer {
+  animation: rowLightSweep 800ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Row Left Glowing Indicator Bar */
+.receipt-indicator-bar {
+  position: absolute;
+  left: 0;
+  top: 15%;
+  bottom: 15%;
+  width: 4px;
+  border-radius: 0 4px 4px 0;
+  background: #059669;
+  transform: scaleY(0);
+  transition: transform 320ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 320ms ease;
+  transform-origin: center;
+}
+
+.group:hover .receipt-indicator-bar {
+  transform: scaleY(1);
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.6);
+}
+
+.group:hover .receipt-indicator-bar.is-amber {
+  background: #d97706;
+  box-shadow: 0 0 12px rgba(217, 119, 6, 0.6);
+}

@@ -1,0 +1,6 @@
+flask
+pandas
+scikit-learn
+flask-cors
+requests
+gunicorn>=21.2.0
